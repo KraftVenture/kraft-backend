@@ -17,6 +17,12 @@ app.use(express.json())
 //   }
 // }
 
+app.get('/', (req, res) => {
+  res.send({
+    message: "server running!"
+  })
+})
+
 require('./src/routes/form.routes.js')(app)
 
 app.listen(process.env.PORT || 5000, () => {
