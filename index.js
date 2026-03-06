@@ -21,6 +21,11 @@ app.get('/', (req, res) => {
 });
 
 require('./src/routes/form.routes.js')(app);
+require('./src/routes/AdminLogin.routes.js')(app)
+
+app.listen(process.env.PORT, () => {
+  console.log(`Server running at http://localhost:${process.env.PORT}`);
+})
 
 // ✅ Export for Vercel instead of app.listen
 module.exports = app;
