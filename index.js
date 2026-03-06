@@ -1,38 +1,25 @@
-require("dotenv").config()
-const pool = require('./src/db/config.js')
-const dotenv = require('dotenv')
-const cors = require('cors')
-const express = require('express')
+require("dotenv").config();
+const pool = require('./src/db/config.js');
+const cors = require('cors');
+const express = require('express');
 
-const app = express()
-// app.use(cors())
+const app = express();
+
 const corsOptions = {
-  origin: ['http://localhost:5173', 'https://kraft-venture.vercel.app/'],
+  origin: ['http://localhost:5173', 'https://kraft-venture.vercel.app'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
 
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
-app.use(express.json())
-
-// async function testDB() {
-//   try {
-//     const res = await pool.query("SELECT NOW()");
-//     console.log("Connected! Time:", res.rows[0]);
-//   } catch (err) {
-//     console.error("DB connection failed:", err);
-//   }
-// }
+app.options('/{*path}', cors(corsOptions));
+app.use(express.json());
 
 app.get('/', (req, res) => {
-  res.send({
-    message: "server running!"
-  })
-})
+  res.send({ message: "server running!" });
+});
 
-require('./src/routes/form.routes.js')(app)
+require('./src/routes/form.routes.js')(app);
 
-app.listen(process.env.PORT || 5000, () => {
-  console.log(`Server running at http://localhost:${process.env.PORT}`);
-})
+// ✅ Export for Vercel instead of app.listen
+module.exports = app;
