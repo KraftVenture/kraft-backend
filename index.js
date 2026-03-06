@@ -5,7 +5,14 @@ const cors = require('cors')
 const express = require('express')
 
 const app = express()
-app.use(cors())
+// app.use(cors())
+const corsOptions = {
+  origin: ['http://localhost:5173', 'https://kraft-venture.vercel.app/'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+app.use(cors(corsOptions));
 app.use(express.json())
 
 // async function testDB() {
